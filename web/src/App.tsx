@@ -3,6 +3,8 @@ import type { BotLevel, Mode, MuniInfo, ServerMessage } from '../../shared/types
 import { Game } from './Game';
 import { MuniPicker } from './MuniPicker';
 import { postJson, wsUrl } from './net';
+import { bgm, se, unlock } from './sound';
+import { SoundToggle } from './SoundToggle';
 
 type Action = { kind: 'random' | 'invite' | 'bot'; mode: Mode; level?: BotLevel };
 type Screen =
@@ -48,6 +50,19 @@ export function App() {
   const [meta, setMeta] = useState<{ dummy: boolean } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    // スマホは最初のタップで音を解禁する。ボタンを押したら軽いクリック音
+    const onDown = (e: PointerEvent) => {
+      unlock();
+      if (screen.k !== 'game') bgm('menu');
+      if ((e.target as HTMLElement).closest('button')) se('tap');
+    };
+    document.addEventListener('pointerdown', onDown);
+    return () => document.removeEventListener('pointerdown', onDown);
+  }, [screen.k]);
+  useEffect(() => {
+    if (screen.k !== 'game') bgm('menu');
+  }, [screen.k]);
   useEffect(() => {
     fetch('/api/meta').then((r) => r.json() as Promise<{ dummy: boolean }>).then(setMeta).catch(() => {});
   }, []);
@@ -95,6 +110,7 @@ export function App() {
   return (
     <div className="page">
       {banner}
+      <SoundToggle />
       <header className="title">
         <h1>市区町村<br />High &amp; Low</h1>
         <p className="muted">相手の市区町村はどこ？ 数値で読み合う1対1の推理バトル</p>

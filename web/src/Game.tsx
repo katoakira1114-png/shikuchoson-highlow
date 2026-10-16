@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import type { Choice, HistoryEntry, PlayerView, ServerMessage, TopicView } from '../../shared/types';
 import { MuniPicker } from './MuniPicker';
 import { fmt, RoomConnection } from './net';
+import { SoundToggle } from './SoundToggle';
+import { useSoundEvents } from './useSoundEvents';
 
 export function Game(props: { roomId: string; token: string; inviteUrl?: string; onExit: () => void }) {
   const [view, setView] = useState<PlayerView | null>(null);
@@ -37,6 +39,7 @@ export function Game(props: { roomId: string; token: string; inviteUrl?: string;
 
   const send = (m: Parameters<RoomConnection['send']>[0]) => conn.current?.send(m);
   const now = conn.current?.serverNow() ?? Date.now();
+  useSoundEvents(view, now);
 
   if (!view) {
     return (
@@ -54,6 +57,7 @@ export function Game(props: { roomId: string; token: string; inviteUrl?: string;
     <div className="game">
       {!online && <div className="banner warn">通信が切れました。再接続しています…</div>}
       {toast && <div className="toast">{toast}</div>}
+      <SoundToggle />
       <Scoreboard v={view} />
       {view.notice && <p className="notice">{view.notice}</p>}
       <main className="arena">

@@ -135,3 +135,6 @@ button { font: inherit; color: inherit; }
 .history .num { text-align: right; font-variant-numeric: tabular-nums; }
 .history .opp { font-weight: 700; color: var(--accent); }
 .toast { position: fixed; top: 12px; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 8px 16px; border-radius: 99px; z-index: 20; font-size: 14px; }
+.sound-toggle { display: flex; gap: 6px; justify-content: flex-end; margin-bottom: 4px; }
+.sound-toggle button { font-size: 12px; padding: 4px 10px; border-radius: 99px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); cursor: pointer; text-decoration: line-through; }
+.sound-toggle button.on { color: var(--ink); text-decoration: none; border-color: var(--accent); }
