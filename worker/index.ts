@@ -18,8 +18,12 @@ export default {
     const url = new URL(req.url);
     const path = url.pathname;
 
-    if (path === '/api/munis') return Response.json(muniList, { headers: { 'cache-control': 'public, max-age=3600' } });
-    if (path === '/api/meta') return Response.json(meta);
+    if (path === '/api/munis') {
+      // データの版が URL に入っているときだけ長くキャッシュする（差し替え時に古い一覧が残らないように）
+      const cache = url.searchParams.get('v') === meta.version ? 'public, max-age=86400, immutable' : 'no-store';
+      return Response.json(muniList, { headers: { 'cache-control': cache } });
+    }
+    if (path === '/api/meta') return Response.json(meta, { headers: { 'cache-control': 'no-store' } });
 
     if (path === '/api/queue') {
       return env.MATCHMAKER.get(env.MATCHMAKER.idFromName('global')).fetch(req);

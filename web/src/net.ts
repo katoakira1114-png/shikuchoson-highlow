@@ -7,7 +7,10 @@ export function wsUrl(path: string): string {
 
 let muniCache: Promise<MuniInfo[]> | null = null;
 export function loadMunis(): Promise<MuniInfo[]> {
-  muniCache ??= fetch('/api/munis').then((r) => r.json() as Promise<MuniInfo[]>);
+  muniCache ??= fetch('/api/meta', { cache: 'no-store' })
+    .then((r) => r.json() as Promise<{ version: string }>)
+    .then((m) => fetch(`/api/munis?v=${encodeURIComponent(m.version)}`))
+    .then((r) => r.json() as Promise<MuniInfo[]>);
   return muniCache;
 }
 
