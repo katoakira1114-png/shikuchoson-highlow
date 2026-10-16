@@ -1,0 +1,23 @@
+// ゲームのルール定数（仕様書_確定版.md と対応）
+export const WIN_SCORE = 10;
+export const MAX_ROUNDS = 15;
+export const ANSWER_MS = 15_000;
+export const NOMINATE_MS = 10_000;
+export const CUTIN_MS = 3_000;
+export const RESULT_MS = 4_500;
+export const INTRO_MS = 3_000;
+export const SELECT_MS = 20_000;
+export const NOMINATIONS = 3;
+export const NOMINATE_POINTS = 3;
+export const NOMINATE_PENALTY = 1;
+export const COMBO_CAP = 3;
+export const NEAR_TIE_RATIO = 0.01;
+export const SUDDEN_COUNTDOWN_MS = 3_000;
+export const SUDDEN_ANSWER_MS = 10_000;
+export const SUDDEN_GRACE_MS = 1_500;
+export const SUDDEN_RESULT_MS = 4_000;
+export const MIN_REACTION_MS = 100;
+export const CLOCK_SKEW_TOLERANCE_MS = 500;
+export const RECONNECT_MS = 30_000;
+export const MATCH_WAIT_MS = 20_000;
+export const INVITE_TTL_MS = 30 * 60_000;
