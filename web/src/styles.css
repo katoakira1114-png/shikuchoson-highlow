@@ -138,3 +138,4 @@ button { font: inherit; color: inherit; }
 .sound-toggle { display: flex; gap: 6px; justify-content: flex-end; margin-bottom: 4px; }
 .sound-toggle button { font-size: 12px; padding: 4px 10px; border-radius: 99px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); cursor: pointer; text-decoration: line-through; }
 .sound-toggle button.on { color: var(--ink); text-decoration: none; border-color: var(--accent); }
+.sources { width: 100%; border-collapse: collapse; font-size: 13px; } .sources td { padding: 6px 4px; border-top: 1px solid var(--line); vertical-align: top; }

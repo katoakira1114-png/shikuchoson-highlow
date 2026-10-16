@@ -221,6 +221,10 @@ function Join(props: { roomId: string; mode: Mode; name: string; setName: (s: st
 }
 
 function Rules({ onBack }: { onBack: () => void }) {
+  const [inds, setInds] = useState<{ name: string; year: string; source: string }[]>([]);
+  useEffect(() => {
+    fetch('/api/meta').then((r) => r.json() as Promise<{ indicators: typeof inds }>).then((m) => setInds(m.indicators)).catch(() => {});
+  }, []);
   return (
     <div className="stack rules">
       <h2>遊び方</h2>
@@ -232,6 +236,18 @@ function Rules({ onBack }: { onBack: () => void }) {
         <li>公開された数値から相手の市区町村を推理して<b>名指し</b>できます（1試合3回）。当たれば +3点、外れたら -1点。</li>
         <li>先に10点に届いた方の勝ち（最大15ラウンド）。同点なら<b>早押し</b>で決着します。</li>
       </ol>
+      <h3>お題とデータの出典</h3>
+      <p className="muted small">政府・自治体などが公開している統計データを加工して使っています。</p>
+      <table className="sources">
+        <tbody>
+          {inds.map((i) => (
+            <tr key={i.name}>
+              <td>{i.name}</td>
+              <td className="muted small">{i.source}（{i.year}）</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       <button className="btn" onClick={onBack}>戻る</button>
     </div>
   );
