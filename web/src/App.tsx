@@ -237,7 +237,9 @@ function Rules({ onBack }: { onBack: () => void }) {
         <li>先に10点に届いた方の勝ち（最大15ラウンド）。同点なら<b>早押し</b>で決着します。</li>
       </ol>
       <h3>お題とデータの出典</h3>
-      <p className="muted small">政府・自治体などが公開している統計データを加工して使っています。</p>
+      <p className="muted small">
+        出典: 政府統計の総合窓口(e-Stat)、国土交通省 国土数値情報、国土地理院、各都道府県の市町村民経済計算、Wikidata（データを加工して作成）
+      </p>
       <table className="sources">
         <tbody>
           {inds.map((i) => (
